@@ -1,0 +1,231 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RetroVU.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RetroVU.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/ThisIsTrueMusic.ico"
+        Title="TOIREVU"
+        SizeToContent="WidthAndHeight"
+        SystemDecorations="None"
+        Background="Transparent"
+        TransparencyLevelHint="Transparent"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
+     <!-- 顶层布局容器 -->
+    <Grid>
+        <Border CornerRadius="16" Background="#212124" ClipToBounds="True" >
+    <Grid   Background="Transparent" PointerPressed="InputElement_OnPointerPressed">
+        
+        <!-- ================= 外壳面板部分 ================= -->
+        <Border Background="#212124"
+                CornerRadius="12"
+                Width="370" Height="300"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderBrush="#18181A"
+                BorderThickness="1"
+                BoxShadow="0 20 40 0 #A0000000">
+
+            <!-- 内部使用 Grid 方便对齐四周的金属装饰元素 -->
+            <Grid>
+                <!--四个角的黑色螺丝钉 -->
+                <Ellipse Width="12" Height="12" Fill="#111111" Margin="16,16,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Ellipse Width="12" Height="12" Fill="#111111" Margin="0,16,16,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                <Ellipse Width="12" Height="12" Fill="#111111" Margin="16,0,0,16" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                <Ellipse Width="12" Height="12" Fill="#111111" Margin="0,0,16,16" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+
+                <!--左上角复古文字 -->
+                <TextBlock Text="TOIRE VU" 
+                           Foreground="#778b9e" 
+                           FontSize="11" 
+                           FontFamily="Consolas" 
+                           FontWeight="Bold" 
+                           LetterSpacing="2" 
+                           Margin="36,20,0,0" 
+                           HorizontalAlignment="Left" 
+                           VerticalAlignment="Top"/>
+                
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,11,20,0"
+                            Spacing="20">
+                    
+                    <!-- 右上角 PEAK 指示灯 -->
+                    <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center" >
+                        <!-- 常态下为暗红色，点亮可以在 C# 中设置 Fill并在外层包裹发光阴影 -->
+                        <Ellipse x:Name="PeakLight" Width="10" Height="10" Fill="#5a0000" VerticalAlignment="Center"  />
+                        <TextBlock Text="PEAK" 
+                                   Foreground="#888888" 
+                                   FontSize="10" 
+                                   FontFamily="Consolas" 
+                                   FontWeight="Bold" 
+                                   VerticalAlignment="Center" 
+                                   LetterSpacing="1"/>
+                    </StackPanel>
+                    
+                    <ToggleButton Name="PinButton" Click="PinButton_OnClick"
+                                  Width="15" Height="15" 
+                                  Background="Transparent" 
+                                  Padding="10,7,20,10" 
+                                  Cursor="Hand"
+                                  ToolTip.Tip="置顶窗口">
+                        <PathIcon Name="PinButtonPathIcon" Data="M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z" Foreground="#666666" Width="10" Height="10"
+                                  Margin="-5,0,1,5"/>
+                        
+                        
+                    </ToggleButton>
+                    
+                    <Button Click="CloseButton_OnClick"
+                            Background="Transparent"
+                            HorizontalAlignment="Right"
+                            Margin="0,-9,-14,1"
+                            Padding="10"
+                            Cursor="Hand"
+                            ToolTip.Tip="关闭">
+                        
+                        <TextBlock Text="✕" Foreground="#666666" FontSize="12" FontWeight="Bold"/>
+                        
+                    </Button>
+                    
+                </StackPanel>
+        <!-- 仪表盘视窗外框 (黄色背景区域) -->
+        <!-- CornerRadius 切出顶部的大圆角设计 -->
+        <Border Background="#f5bf7a"
+                CornerRadius="160,160,4,4" 
+                Width="320" Height="220"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,20"
+                BorderBrush="#121213"
+                BorderThickness="3"
+                BoxShadow="inset 0 10 50 0 #99000000"> <!-- 简单的内阴影增加立体感 -->
+            
+            <!-- Canvas提供绝对坐标定位-->
+            <Canvas x:Name="ScaleCanvas" Width="320" Height="240"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                
+                <!-- 表针 Needle -->
+                <!-- 指针容器：将旋转轴心设置在底部的图钉位置  -->
+                <Canvas x:Name="NeedleCanvas" ZIndex="10" Width="320" Height="240" RenderTransformOrigin="50%,100%" RenderTransform="rotate(-45deg)">
+                    <!-- 1. 针的阴影 (右偏1像素，带透明度) -->
+                    <Line StartPoint="161,245" EndPoint="166,88" 
+                          Stroke="#26000000" StrokeThickness="4" StrokeLineCap="Round" />
+                    <!-- 2. 表针主干 -->
+                    <Line StartPoint="160,239" EndPoint="160,83" 
+                          Stroke="#18181b" StrokeThickness="3" StrokeLineCap="Round" />
+                    <!-- 3. 指针尖端 (更细) -->
+                    <Line StartPoint="160,85" EndPoint="160,80" 
+                          Stroke="#18181b" StrokeThickness="1" StrokeLineCap="Round" />
+                </Canvas>
+                <!-- 轨道圆弧  -->
+                <!-- 黑色圆弧 (-20 到 0 VU) -->
+                <!-- 利用已知的半径(R=160)和角度计算 StartPoint 和 EndPoint -->
+                <Path Stroke="#2c2c2c" StrokeThickness="2.5">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="46.86,126.86" IsClosed="False">
+                                <!-- SweepDirection="Clockwise" 保证是外凸圆弧 -->
+                                <ArcSegment Point="240,101.44" Size="160,160" SweepDirection="Clockwise" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+
+                <!-- 红色圆弧 (0 到 +3 VU) -->
+                <Path Stroke="#d92b2b" StrokeThickness="4">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="240,101.44" IsClosed="False">
+                                <ArcSegment Point="273.14,126.86" Size="160,160" SweepDirection="Clockwise" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                
+                <!-- 文字装饰 -->
+                <TextBlock Text="VU" Canvas.Left="150" Canvas.Top="140" 
+                           Foreground="#555555" FontFamily="Monospace" FontWeight="Bold" FontSize="14" LetterSpacing="2"/>
+                <TextBlock Text="AUDIO LEVEL INDICATOR" Canvas.Left="105" Canvas.Top="170" 
+                           Foreground="#777777" FontFamily="Sans-Serif" FontSize="8" LetterSpacing="1"/>
+                
+                <!--读数-->
+                <!-- 使用 Border给数字加一个小边框，更有仪器的感觉 -->
+                <Border Canvas.Left="135" Canvas.Top="186" Width="50" Height="15" 
+                        BorderThickness="1" BorderBrush="#88555555" Background="#11000000" CornerRadius="2">
+                    
+                    <TextBlock x:Name="ReadoutText" Text="-∞ dB" 
+                               Foreground="#666" FontFamily="Consolas" FontWeight="Bold" FontSize="10" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                
+                <!-- 内部衰减按钮-->
+                <Button Click="DecreaseGainButton_OnClick"
+                        Name="DecreaseButton"
+                        Canvas.Left="100" Canvas.Top="195"
+                        Width="30" Height="30"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        ToolTip.Tip="减小内部增益，每次-2dB">
+                    <TextBlock  Text="-" Foreground="#444444" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        
+                    </TextBlock>
+                    
+                </Button>
+                
+                <!--内部增益按钮-->
+                <Button Click="IncreaseGainButton_OnClick"
+                        Name="IncreaseButton"
+                    Canvas.Right="100" Canvas.Top="195"
+                    Width="30" Height="30"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    ToolTip.Tip="增加内部增益，每次+2dB">
+                    <TextBlock  Text="+" Foreground="#444444" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        
+                    </TextBlock>
+                    
+                </Button>
+                
+                <Button Click="ResetButton_Onclick"
+                        Name="ResetButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        ZIndex="20"
+                        ToolTip.Tip="重置增益" Canvas.Right="142" Canvas.Bottom="0">
+                    <TextBlock Text="↺" FontSize="18"
+                               Foreground="#dc6e6c" FontWeight="Bold">
+                    </TextBlock>
+                    
+                </Button>
+                
+                
+                <!-- 中心的圆黑图钉 -->
+                <Ellipse ZIndex="15" Width="48" Height="48" Fill="#212124" Canvas.Left="136" Canvas.Top="203"/>
+                <Ellipse ZIndex="15" Width="36" Height="36" Fill="#212124" Canvas.Left="142" Canvas.Top="203"/>
+                <Ellipse ZIndex="15" Width="10" Height="10" Fill="#212124" Canvas.Left="155" Canvas.Top="203"/>
+                <Line ZIndex="15" StartPoint="157,237" EndPoint="157,237" Stroke="#333333" StrokeThickness="1" />
+            </Canvas>
+        </Border>
+                
+            </Grid>
+        </Border>
+          
+    </Grid>
+    </Border>
+    </Grid>
+    
+</Window>
