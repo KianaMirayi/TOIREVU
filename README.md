@@ -2,7 +2,7 @@
 
 A beautiful, physically-simulated retro analog VU meter for your desktop. 
 
-RetroVU 是一款跨平台的桌面复古 VU 表（音量计）。它不仅拥有精致的复古工作室美学外观，还内置了真实的物理模拟算法，还原了模拟硬件表针的弹性和惯性感。
+TOIREVU 是一款跨平台的桌面复古 VU 表（音量计）。它不仅拥有精致的复古工作室美学外观，还内置了真实的物理模拟算法，还原了模拟硬件表针的弹性和惯性感。
 
 
 <img width="370" height="300" alt="image" src="https://github.com/user-attachments/assets/0365e6e8-bc8e-469e-885b-340b5f5f569e" />
@@ -21,7 +21,7 @@ RetroVU 是一款跨平台的桌面复古 VU 表（音量计）。它不仅拥�
 
 请前往 [Releases 页面](你的仓库Release页面链接) 下载适用于你操作系统的最新版本。
 
-RetroVU 提供了单文件/便携式免安装版本：
+TOIREVU 提供了单文件/便携式免安装版本：
 
 * **Windows**: 下载 `.zip` 压缩包，解压后双击 `RetroVU.exe` 即可运行。
 * **macOS**: 下载适用于您芯片类型（Apple M 系列芯片下载 `ARM64` / Intel 芯片下载 `x64`）的 `.zip` 文件，解压后直接运行 `RetroVU` 应用程序。
