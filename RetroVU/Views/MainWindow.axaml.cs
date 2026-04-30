@@ -15,12 +15,12 @@ namespace RetroVU.Views;
 
 public partial class MainWindow : Window
 {
-    private AudioAnalyzer _analyzer; // 声明我们刚刚写的分析器
+    private AudioAnalyzer _analyzer; // 声明
     
     private DispatcherTimer _timer;
     private double _currentDb = -20;
     private double _targetDb = -20;
-    private double _currentAngle = -45.0; // 改为记录指针实际的角度
+    private double _currentAngle = -45.0; // 记录指针实际的角度
     private double _rawVU = -20.0;
     //private Random _random = new Random();
 
@@ -29,7 +29,7 @@ public partial class MainWindow : Window
     
     private DateTime _lastAudioTime = DateTime.Now;
 
-    // === 新增物理模拟变量 ===
+    //  新增物理模拟变量 
     private double _velocity = 0;// 表针当前的运动速度
     private double _stiffness = 0.29; //刚度（弹簧拉力）：值越大响应越快，(范围 0.05 - 0.3)
     private double _friction = 0.42;  // 阻尼（摩擦力）：值越大停下得越快。 (范围 0.1 - 0.5)
@@ -43,7 +43,7 @@ public partial class MainWindow : Window
         string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         string appFolder = IoPath.Combine(appDataFolder, "RetroVU");
 
-        if (!Directory.Exists(appFolder))  // 检查并创建配置文件夹（万一这是用户第一次运行程序还没文件夹的话）
+        if (!Directory.Exists(appFolder))  // 检查并创建配置文件夹
         {
             Directory.CreateDirectory(appFolder);
         }
@@ -54,8 +54,8 @@ public partial class MainWindow : Window
         
         DrawScale();
 
-        // ======= 1. 启动音频监听链路 =======
-        _analyzer = new AudioAnalyzer(); // 1. 初始化 Analyzer
+        // ======= 启动音频监听链路 =======
+        _analyzer = new AudioAnalyzer(); // 初始化 Analyzer
         _analyzer.AudioDataAvailable += OnAudioDataAvailable;
         _analyzer.StartCapturing();
 
@@ -110,10 +110,10 @@ public partial class MainWindow : Window
         _analyzer?.Dispose();
     }
 
-    // ======= 核心处理：把音频信号变作指针运动 =======
+    // 把音频信号变作指针运动
     private void OnAudioDataAvailable(object? sender, AudioDateEventArgs e)
     {
-        //提取在 AudioAnalyzer 里算好的 均方(Power)，此时对它开根号，转成 RMS (均方根)振幅
+        //提取在 AudioAnalyzer 里算好的 均方(Power)开根号，转成 RMS (均方根)振幅
         double rms = Math.Sqrt(e.Power);
         
         // 将振幅转换为对数分贝 dBFS 
@@ -125,7 +125,6 @@ public partial class MainWindow : Window
         }
         
         // 校准偏差 (Calibration Offset)
-        // 电脑内最高分贝是 0 dBFS，通常音乐都在 -10dBFS 均值徘徊。
         //double gainOffest = 26;
         
         double vu = db + _gainOffset; 
@@ -174,11 +173,9 @@ public partial class MainWindow : Window
         this.Close();
     }
     
-    // ==========================================
-    // 动画与物理模拟逻辑
-    // ==========================================
     
-    // =======动画与UI渲染渲染 (在主线程) =======
+    // 动画与物理模拟逻辑
+    // 动画与UI渲染渲染 (在主线程) 
     private void StartSimulation()
     {
         _timer = new DispatcherTimer()
@@ -222,22 +219,9 @@ public partial class MainWindow : Window
         
         
         
-        // 2. 平滑插值 (Easing)：让物理指针有一个“追赶”目标值的过程，而不是瞬间移动
+        // 平滑插值 (Easing)：让物理指针有一个“追赶”目标值的过程，而不是瞬间移动
         //double damping = 0.1;// 阻尼系数：越小感觉指针越重，越大响应越快,（0.05 极慢，0.5 极快）
-        /*double attackDamping = 0.15; // 弹起速度（较大 = 快，灵敏）
-        double releaseDamping = 0.02; // 回落速度（较小 = 带有惯性的平滑回落）
         
-        
-        if (_targetDb > _currentDb)
-        {
-            _currentDb += (_targetDb - _currentDb) * attackDamping; // 当来了一个强音，迅速追随（Attack）
-        }
-        else
-        {
-            _currentDb += (_targetDb - _currentDb) * releaseDamping;// 当声音渐渐消失，缓慢优雅地回落（Release）
-        }*/
-
-        // _currentDb += (_targetDb - _currentDb) * damping;
 
         double disPlayDb = Math.Clamp(_currentDb, -20.0, 3.0);
         
@@ -282,7 +266,6 @@ public partial class MainWindow : Window
 
     
     //将非线性的DB刻度转换为对应的旋转角度
-    
     private double DbToAngle(double db)
     {
         // 处理边界值情况
@@ -326,7 +309,7 @@ public partial class MainWindow : Window
 
         var vuScale = new[]
         {
-            //预先定义好的经典 VU 表非线性刻度和对应的角度
+            //预先定义好的经典VU表非线性刻度和对应的角度
             new { vu = -20, angle = -45.0 },
             new { vu = -10, angle = -20.0 },
             new { vu = -7,  angle = -5.0 },
@@ -339,9 +322,8 @@ public partial class MainWindow : Window
             new { vu = 3,   angle =  45.0 },
         };
 
-        // ==========================================
+        
         // 画主刻度线和刻度文字
-        // ==========================================
         foreach (var mark in vuScale)
         {
             // 大于等于 0 VU 的是警戒红区

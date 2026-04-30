@@ -27,7 +27,7 @@
         <Border CornerRadius="16" Background="#212124" ClipToBounds="True" >
     <Grid   Background="Transparent" PointerPressed="InputElement_OnPointerPressed">
         
-        <!-- ================= 外壳面板部分 ================= -->
+        <!-- 外壳面板部分  -->
         <Border Background="#212124"
                 CornerRadius="12"
                 Width="370" Height="300"
@@ -160,7 +160,7 @@
                            Foreground="#777777" FontFamily="Sans-Serif" FontSize="8" LetterSpacing="1"/>
                 
                 <!--读数-->
-                <!-- 使用 Border给数字加一个小边框，更有仪器的感觉 -->
+                <!-- 使用 Border给数字加小边框，更有仪器的感觉 -->
                 <Border Canvas.Left="135" Canvas.Top="186" Width="50" Height="15" 
                         BorderThickness="1" BorderBrush="#88555555" Background="#11000000" CornerRadius="2">
                     

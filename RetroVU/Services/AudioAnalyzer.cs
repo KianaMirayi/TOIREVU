@@ -3,7 +3,7 @@ using NAudio.Wave;
 
 namespace RetroVU.Services;
 
-public class AudioDateEventArgs : EventArgs // 定义一个包含了音频瞬时能量的数据事件
+public class AudioDateEventArgs : EventArgs // 定义包含了音频瞬时能量的数据事件
 {
     public float Power { get; set; }// 当前音频帧的整体能量(均方根平方)
 }

@@ -79,3 +79,4 @@ E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Debug\net9.0\refint\RetroVU.dll
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Debug\net9.0\RetroVU.pdb
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Debug\net9.0\RetroVU.genruntimeconfig.cache
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Debug\net9.0\ref\RetroVU.dll
+E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Debug\net9.0\RetroVU.sourcelink.json
