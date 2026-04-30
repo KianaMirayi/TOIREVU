@@ -37,7 +37,7 @@ RetroVU 提供了单文件/便携式免安装版本：
 
 ## 🛠️ 技术栈 (Tech Stack)
 
-* **C# / .NET 8.0+**
+* **C# / .NET 9.0**
 * **Avalonia UI** (强大的跨平台 UI 框架)
 
 ## 📄 许可证 (License)
