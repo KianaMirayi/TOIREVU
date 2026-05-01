@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RetroVU")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+842dcc9495dd11b2d12b314ac08f29e37d3a11ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a99e5e042c93dcbed167ae3ede3929fe873e460")]
 [assembly: System.Reflection.AssemblyProductAttribute("RetroVU")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RetroVU")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,6 +1,6 @@
 ﻿namespace RetroVU.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+internal partial class MainWindowViewModel : ViewModelBase
 {
     public string Greeting { get; } = "Welcome to Avalonia!";
 }

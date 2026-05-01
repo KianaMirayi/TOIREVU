@@ -1,4 +1,2 @@
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\linux-x64\publish\RetroVU.pdb
-E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\linux-x64\publish\libHarfBuzzSharp.so
-E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\linux-x64\publish\libSkiaSharp.so
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\linux-x64\publish\RetroVU

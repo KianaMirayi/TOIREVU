@@ -235,3 +235,4 @@ E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Release\net9.0\win-x64\RetroVU.
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Release\net9.0\win-x64\ref\RetroVU.dll
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\win-x64\RetroVU.pdb
 E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Release\net9.0\win-x64\RetroVU.pdb
+E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\obj\Release\net9.0\win-x64\RetroVU.sourcelink.json
