@@ -1,5 +1,0 @@
-E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\osx-x64\publish\RetroVU.pdb
-E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\osx-x64\publish\libAvaloniaNative.dylib
-E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\osx-x64\publish\libHarfBuzzSharp.dylib
-E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\osx-x64\publish\libSkiaSharp.dylib
-E:\Programing\EasyC#\RetroVU\RetroVU\RetroVU\bin\Release\net9.0\osx-x64\publish\RetroVU
